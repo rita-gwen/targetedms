@@ -30,6 +30,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.labkey.api.action.*;
 import org.labkey.api.analytics.AnalyticsService;
+import org.labkey.api.query.QueryDefinition;
 import org.labkey.api.util.StringUtilsLabKey;
 import org.labkey.api.util.UnexpectedException;
 import org.labkey.api.view.PopupMenu;
@@ -3415,6 +3416,47 @@ public class TargetedMSController extends SpringActionController
             return view;
         }
     }
+
+    @RequiresPermission(ReadPermission.class)
+    public class ShowSkylineAuditLogAction extends AbstractShowRunDetailsAction<QueryView>
+    {
+        private static final String DATA_REGION_NAME = "SkylineAuditLog";
+        private static final String LOG_QUERY_NAME = "AuditLogTraverse";
+
+        public ShowSkylineAuditLogAction()
+        {
+            super(RunDetailsForm.class);
+        }
+
+        @Override
+        protected ModelAndView getHtmlView(RunDetailsForm form, BindException errors) throws Exception
+        {
+            WebPartView logView = createInitializedQueryView(form, errors, false, DATA_REGION_NAME);
+            logView.setFrame(WebPartView.FrameType.PORTAL);
+            logView.setTitle("Skyline Audit Log");
+
+            VBox vBox = new VBox();
+            vBox.addView(getSummaryView(form, _run));
+            vBox.addView(logView);
+            return vBox;
+        }
+
+        @Override
+        protected QueryView createQueryView(RunDetailsForm form, BindException errors, boolean forExport, String dataRegion)
+        {
+            QuerySettings settings = new QuerySettings(getViewContext(), DATA_REGION_NAME, LOG_QUERY_NAME);
+            TargetedMSSchema schema = new TargetedMSSchema(getUser(), getContainer());
+            QueryView view = schema.createView(getViewContext(), settings, errors);
+            QueryDefinition qDef = settings.getQueryDef(schema);
+            String sqlWithParameter = qDef.getSql().replaceAll("<RUN_ID>", Integer.toString(form._id));
+            qDef.setSql(sqlWithParameter);
+
+            view.setShowDetailsColumn(false);
+            view.setShowFilterDescription(false);
+            return view;
+        }
+    }
+
 
     public static class RunDetailsForm extends QueryViewAction.QueryExportForm
     {

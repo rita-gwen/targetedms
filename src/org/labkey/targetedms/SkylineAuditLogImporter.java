@@ -113,7 +113,7 @@ public class SkylineAuditLogImporter
         _logTree = buildLogTree();
 
         //verify that the tree is not empty
-        if(docCount == 0 || _logTree.getTreeSize() > 1){
+        if(docCount <= 1 || _logTree.getTreeSize() > 1){
             //if document count >0 retrieve audit log tree for this GUID
             try
             {
@@ -333,6 +333,7 @@ public class SkylineAuditLogImporter
                     break;
                 }
             }
+
             assertNotNull(panoramaContainer);
             SkylineAuditLogImporter importer = new SkylineAuditLogImporter( _logger, logFile, _docGUID, panoramaContainer, _user);
 

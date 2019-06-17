@@ -1436,6 +1436,8 @@ public class TargetedMSSchema extends UserSchema
         hs.add(TABLE_QC_METRIC_CONFIGURATION);
         hs.add(TABLE_QC_METRIC_EXCLUSION);
         hs.add(TABLE_QC_ENABLED_METRICS);
+        hs.add(TABLE_SKYLINE_AUDITLOG_ENTRY);
+        hs.add(TABLE_SKYLINE_AUDITLOG_MESSAGE);
         hs.add(TABLE_QC_EMAIL_NOTIFICATIONS);
         return hs;
     }

@@ -236,6 +236,11 @@ public class AuditLogEntry
         return this;
     }
 
+    public static AuditLogEntry retrieve(Integer entryId){
+        TargetedMSManager.getTableInfoSkylineAuditLogEntry().getColumns();
+        return null;
+    }
+
     public AuditLogEntry expandEntry(AuditLogMessageExpander p_expander){
         if(_extraInfo != null)
             setExtraInfo(p_expander.expandLogString(_extraInfo));
