@@ -1439,6 +1439,7 @@ public class TargetedMSSchema extends UserSchema
         hs.add(TABLE_SKYLINE_AUDITLOG_ENTRY);
         hs.add(TABLE_SKYLINE_AUDITLOG_MESSAGE);
         hs.add(TABLE_QC_EMAIL_NOTIFICATIONS);
+
         return hs;
     }
 
