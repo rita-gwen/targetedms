@@ -659,7 +659,7 @@ public class SkylineDocImporter
                 }
             }
 
-            SkylineAuditLogImporter importer = new SkylineAuditLogImporter( _log, _auditLogFile, run.getDocumentGUID(), _container, _user);
+            SkylineAuditLogImporter importer = new SkylineAuditLogImporter(_auditLogFile, run.getDocumentGUID(), _container, _user);
 
             if(importer.verifyPreRequisites()) {
                 importer.persistAuditLog(run.getRunId());
